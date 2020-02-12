@@ -1,22 +1,24 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, Button,
+  StyleSheet,
 } from 'react-native';
+import { Text, Input, Button } from 'react-native-elements';
+import Spacer from '../components/Spacer';
 
 const styles = StyleSheet.create({});
 
 const SignupScreen = ({ navigation }) => (
-  <View>
-    <Text style={{ fontSize: 48 }}>Signup Screen</Text>
-    <Button
-      title="Go to Signin"
-      onPress={() => navigation.navigate('Signin')}
-    />
-    <Button
-      title="Go to Main Flow"
-      onPress={() => navigation.navigate('mainFlow')}
-    />
-  </View>
+  <>
+    <Spacer>
+      <Text h3>Sign Up For Tracker</Text>
+    </Spacer>
+    <Input label="Email" />
+    <Spacer />
+    <Input label="Password" />
+    <Spacer>
+      <Button title="Sign up" />
+    </Spacer>
+  </>
 );
 
 export default SignupScreen;
