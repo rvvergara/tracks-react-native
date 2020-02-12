@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -14,19 +14,37 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignupScreen = ({ navigation }) => (
-  <View style={styles.container}>
-    <Spacer>
-      <Text h3>Sign Up For Tracker</Text>
-    </Spacer>
-    <Input label="Email" />
-    <Spacer />
-    <Input label="Password" />
-    <Spacer>
-      <Button title="Sign up" />
-    </Spacer>
-  </View>
-);
+const SignupScreen = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  return (
+    <View style={styles.container}>
+      <Spacer>
+        <Text h3>Sign Up For Tracker</Text>
+      </Spacer>
+      <Input
+        label="Email"
+        value={email}
+        onChangeText={setEmail}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <Spacer />
+      <Input
+        label="Password"
+        value={password}
+        onChangeText={setPassword}
+        autoCapitalize="none"
+        autoCorrect={false}
+        secureTextEntry
+      />
+      <Spacer>
+        <Button title="Sign up" />
+      </Spacer>
+    </View>
+  );
+};
 
 SignupScreen.navigationOptions = () => ({
   headerShown: false,
