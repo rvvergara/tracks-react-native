@@ -13,7 +13,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginBottom: 250,
+    marginBottom: 150,
+  },
+  error: {
+    margin: 15,
+    color: 'red',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
@@ -44,7 +50,6 @@ const SignupScreen = ({ navigation }) => {
         onChangeText={setEmail}
         autoCapitalize="none"
         autoCorrect={false}
-        errorMessage={errorState}
       />
       <Spacer />
       <Input
@@ -55,6 +60,7 @@ const SignupScreen = ({ navigation }) => {
         autoCorrect={false}
         secureTextEntry
       />
+      {errorState && <Text style={styles.error}>{errorState}</Text>}
       <Spacer>
         <Button
           title="Sign up"

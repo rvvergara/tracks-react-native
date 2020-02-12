@@ -10,7 +10,12 @@ export const signup = async (signupDispatch, errorDispatch, signupParams) => {
     signupDispatch(setAuthToken(token));
     return token;
   } catch (err) {
-    errorDispatch(setError(err.message));
+    if (err.response.data.includes('email')) {
+      errorDispatch(setError('Email is invalid or already taken'));
+    }
+    if (err.response.data.includes('password')) {
+      errorDispatch(setError('Password invalid or is blank'));
+    }
     return null;
   }
 };
