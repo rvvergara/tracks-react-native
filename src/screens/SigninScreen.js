@@ -5,7 +5,7 @@ const styles = StyleSheet.create({});
 
 const SigninScreen = () => (
   <View>
-    <Text>Signin Screen</Text>
+    <Text style={{ fontSize: 48 }}>Signin Screen</Text>
   </View>
 );
 

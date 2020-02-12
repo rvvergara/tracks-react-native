@@ -5,7 +5,7 @@ const styles = StyleSheet.create({});
 
 const AccountScreen = () => (
   <View>
-    <Text>Account Screen</Text>
+    <Text style={{ fontSize: 48 }}>Account Screen</Text>
   </View>
 );
 
