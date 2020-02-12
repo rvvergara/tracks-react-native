@@ -6,7 +6,7 @@ export default (reducer, initialState) => {
   const Provider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     return (
-      <Context.Provider value={state, dispatch}>
+      <Context.Provider value={{ state, dispatch }}>
         { children}
       </Context.Provider>
     );
