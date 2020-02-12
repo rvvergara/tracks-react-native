@@ -6,6 +6,7 @@ import {
 import { Text, Input, Button } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 import { Context as AuthContext } from '../context/AuthContext';
+import { Context as ErrorContext } from '../context/ErrorContext';
 import { signup } from '../thunks/auth';
 
 const styles = StyleSheet.create({
@@ -20,10 +21,13 @@ const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch: signupDispatch } = useContext(AuthContext);
+
+
+  const { state: errorState, dispatch: errorDispatch } = useContext(ErrorContext);
 
   const handleSignup = async () => {
-    const res = await signup(dispatch, { email, password });
+    const res = await signup(signupDispatch, errorDispatch, { email, password });
     if (res) {
       navigation.navigate('mainFlow');
     }
@@ -40,6 +44,7 @@ const SignupScreen = ({ navigation }) => {
         onChangeText={setEmail}
         autoCapitalize="none"
         autoCorrect={false}
+        errorMessage={errorState}
       />
       <Spacer />
       <Input

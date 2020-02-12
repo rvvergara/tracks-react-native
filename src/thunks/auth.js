@@ -1,16 +1,16 @@
 import trackerAPI from '../utils/tracker';
 import { setAuthToken } from '../actions/auth';
+import { setError } from '../actions/error';
 
-export const signup = async (dispatch, signupParams) => {
+export const signup = async (signupDispatch, errorDispatch, signupParams) => {
   const path = '/signup';
   try {
     const res = await trackerAPI.post(path, signupParams);
     const { token } = res.data;
-    dispatch(setAuthToken(token));
+    signupDispatch(setAuthToken(token));
     return token;
   } catch (err) {
-    // set error data
-    console.log('ERROR', err.response);
+    errorDispatch(setError(err.message));
     return null;
   }
 };
