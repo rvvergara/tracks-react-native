@@ -40,10 +40,7 @@ const UserForm = ({navigation}) => {
 
   const handleSubmit = async () => {
     const auth = routeName === 'Signup' ? signup : signin;
-    const res = await auth(authDispatch, errorDispatch, {email, password});
-    if (res) {
-      navigation.navigate('mainFlow');
-    }
+    auth(authDispatch, errorDispatch, {email, password});
   };
 
   const clearForm = () => {

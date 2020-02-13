@@ -11,7 +11,7 @@ export const signup = async (signupDispatch, errorDispatch, signupParams) => {
     const {token} = await res.data;
     await signupDispatch(setAuthToken(token));
     await AsyncStorage.setItem('token', token);
-    return token;
+    return navigate('mainFlow');
   } catch (err) {
     if (err.response.data.includes('email')) {
       errorDispatch(setError('Email is invalid or already taken'));
@@ -30,7 +30,7 @@ export const signin = async (signinDispatch, errorDispatch, signinParams) => {
     const {token} = await res.data;
     await signinDispatch(setAuthToken(token));
     await AsyncStorage.setItem('token', token);
-    return token;
+    return navigate('mainFlow');
   } catch (err) {
     errorDispatch(setError('Invalid email or password'));
     return null;
@@ -46,6 +46,7 @@ export const autoSignIn = async () => {
 };
 
 export const signout = async (dispatch) => {
+  await AsyncStorage.removeItem('token');
   dispatch(setAuthToken(null));
   return navigate('loginFlow');
 };
