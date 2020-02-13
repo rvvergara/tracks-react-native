@@ -8,11 +8,12 @@ import AccountScreen from './src/screens/AccountScreen';
 import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 import TrackDetailScreen from './src/screens/TrackDetail';
+import ResolveAuthScreen from './src/screens/ResolveAuthScreen';
 import CombinedProvider from './src/context/CombinedContext';
 import { setNavigator } from './src/utils/navigationRef';
-import { autoSignIn } from './src/thunks/auth';
 
 const switchNavigator = createSwitchNavigator({
+  ResolveAuth: ResolveAuthScreen,
   loginFlow: createStackNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen,
@@ -28,8 +29,6 @@ const switchNavigator = createSwitchNavigator({
 });
 
 const App = createAppContainer(switchNavigator);
-
-autoSignIn();
 
 export default () => (
   <CombinedProvider>
