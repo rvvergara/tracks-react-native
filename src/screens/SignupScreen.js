@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -8,6 +8,7 @@ import Spacer from '../components/Spacer';
 import { Context as AuthContext } from '../context/AuthContext';
 import { Context as ErrorContext } from '../context/ErrorContext';
 import { signup } from '../thunks/auth';
+import {setError} from '../actions/error';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,6 +32,11 @@ const SignupScreen = ({ navigation }) => {
 
 
   const { state: errorState, dispatch: errorDispatch } = useContext(ErrorContext);
+
+
+  useEffect(() => () => {
+    errorDispatch(setError(''));
+  }, []);
 
   const handleSignup = async () => {
     const res = await signup(signupDispatch, errorDispatch, { email, password });
@@ -60,7 +66,7 @@ const SignupScreen = ({ navigation }) => {
         autoCorrect={false}
         secureTextEntry
       />
-      {errorState && <Text style={styles.error}>{errorState}</Text>}
+      {errorState ? <Text style={styles.error}>{errorState}</Text> : null}
       <Spacer>
         <Button
           title="Sign up"

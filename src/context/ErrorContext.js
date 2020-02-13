@@ -7,4 +7,4 @@ const errorReducer = (state, action) => {
   return state;
 };
 
-export const { Context, Provider } = createDataContext(errorReducer, null);
+export const { Context, Provider } = createDataContext(errorReducer, '');
