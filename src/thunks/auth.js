@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import trackerAPI from '../utils/tracker';
 import {setAuthToken} from '../actions/auth';
 import {setError} from '../actions/error';
+import { navigate } from '../utils/navigationRef';
 
 export const signup = async (signupDispatch, errorDispatch, signupParams) => {
   const path = '/signup';
@@ -36,6 +37,15 @@ export const signin = async (signinDispatch, errorDispatch, signinParams) => {
   }
 };
 
+export const autoSignIn = async () => {
+  const token = await AsyncStorage.getItem('token');
+  if (token) {
+    return navigate('mainFlow');
+  }
+  return navigate('loginFlow');
+};
+
 export const signout = async (dispatch) => {
-  // set user data in context
+  dispatch(setAuthToken(null));
+  return navigate('loginFlow');
 };

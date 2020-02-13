@@ -9,6 +9,8 @@ import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 import TrackDetailScreen from './src/screens/TrackDetail';
 import CombinedProvider from './src/context/CombinedContext';
+import { setNavigator } from './src/utils/navigationRef';
+import { autoSignIn } from './src/thunks/auth';
 
 const switchNavigator = createSwitchNavigator({
   loginFlow: createStackNavigator({
@@ -27,8 +29,10 @@ const switchNavigator = createSwitchNavigator({
 
 const App = createAppContainer(switchNavigator);
 
+autoSignIn();
+
 export default () => (
   <CombinedProvider>
-    <App />
+    <App ref={(navigator) => setNavigator(navigator)} />
   </CombinedProvider>
 );
