@@ -1,8 +1,8 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {Text, Input, Button} from 'react-native-elements';
-import {withNavigation} from 'react-navigation';
+import {withNavigation, NavigationEvents } from 'react-navigation';
 import Spacer from './Spacer';
 import {Context as AuthContext} from '../context/AuthContext';
 import {Context as ErrorContext} from '../context/ErrorContext';
@@ -38,19 +38,6 @@ const UserForm = ({navigation}) => {
 
   const {state: errorState, dispatch: errorDispatch} = useContext(ErrorContext);
 
-  useEffect(
-    () => () => {
-      errorDispatch(setError(''));
-    },
-    [],
-  );
-
-  useEffect(() => {
-    navigation.addListener('didFocus', () => {
-      errorDispatch(setError(''));
-    });
-  }, []);
-
   const handleSubmit = async () => {
     const auth = routeName === 'Signup' ? signup : signin;
     const res = await auth(authDispatch, errorDispatch, {email, password});
@@ -59,8 +46,17 @@ const UserForm = ({navigation}) => {
     }
   };
 
+  const clearForm = () => {
+    setEmail('');
+    setPassword('');
+    errorDispatch(setError(''));
+  };
+
   return (
     <View style={styles.container}>
+      <NavigationEvents
+        onWillBlur={clearForm}
+      />
       <Spacer>
         <Text h3>{titleText}</Text>
       </Spacer>
