@@ -22,13 +22,17 @@ export const signup = async (signupDispatch, errorDispatch, signupParams) => {
   }
 };
 
-export const signin = async (dispatch, signinParams) => {
-  const path = '';
+export const signin = async (signinDispatch, errorDispatch, signinParams) => {
+  const path = '/signin';
   try {
-    // set current user data in context
+    const res = await trackerAPI.post(path, signinParams);
+    const {token} = await res.data;
+    await signinDispatch(setAuthToken(token));
+    await AsyncStorage.setItem('token', token);
+    return token;
   } catch (err) {
-    console.log('ERROR', err);
-    // set error in context
+    errorDispatch(setError('Invalid email or password'));
+    return null;
   }
 };
 
