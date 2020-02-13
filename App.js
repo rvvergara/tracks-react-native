@@ -14,6 +14,8 @@ const switchNavigator = createSwitchNavigator({
   loginFlow: createStackNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen,
+  }, {
+    initialRouteName: 'Signin',
   }),
   mainFlow: createBottomTabNavigator({
     trackListFlow: createStackNavigator({
